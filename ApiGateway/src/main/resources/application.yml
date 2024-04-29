@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: ApiGateway
+  cloud:
+    gateway:
+      routes:
+        - id: USERMODULE
+          uri: lb://USERMODULE
+          predicates:
+            - Path= /api/users/**
+
+        - id: RATINGMODULE
+          uri: lb://RATINGMODULE
+          predicates:
+            - path=/api/ratings/**
+
+        - id: HOTEL-MODULE
+          uri: lb://HOTEL-MODULE
+          predicates:
+            - path=/api/hotel/**
+
+server:
+  port: 9093
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
